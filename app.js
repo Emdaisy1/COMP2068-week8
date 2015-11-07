@@ -1,9 +1,23 @@
+//Registers all the application's modules
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+//Add in everything needed for authentication
+var session = require('express-session');
+var mongoose = require('mongoose');
+var flash = require('connect-flash');
+var passport = require('passport');
+
+//Add database setup
+var DB = require('./config/db.js'); //binds database in that folder to app.js file
+mongoose.connect(DB.url);
+mongoose.connection.on('error', function() {
+  console.error('MongoDB Connection Failed...');
+});
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
