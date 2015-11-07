@@ -36,6 +36,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Set up Session object
+app.use(session({
+  secret: 'someSecret',
+  saveUninitialized: true,
+  resave: true
+}));
+
+//Add in connection to Passport and Flash and configure them
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/', routes);
 app.use('/users', users);
 
